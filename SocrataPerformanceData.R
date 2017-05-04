@@ -11,7 +11,7 @@ require(RSocrata)
 dbhandle <- odbcDriverConnect('driver={SQL Server};server=PETERMOORE-PC\\SQLEXPRESS;database=fulton_county')
 query <- "SELECT k.Quarter
     , k.Year
-    , d.StartDate
+    , CAST(k.Year as varchar(4))+'-'+CONVERT(char(2),d.StartDate,101)+'-01' as Date
     , p.Program
     , p.ProgramName
     , p.MeasureName
@@ -39,7 +39,6 @@ odbcClose(dbhandle)
 username = ""
 password = ""
 url = ""
-
 # Write to socrata - uncomment when ready to replace the dataset
 # write.socrata(r, url, update_mode = "REPLACE", email=username, password=password)
 
